@@ -43,7 +43,7 @@ class UserController extends AbstractController
     /**
      * Add a User
      *
-     * @param Request $request
+     * @param Request     $request
      * @param UserManager $userManager
      *
      * @return Response
@@ -79,8 +79,8 @@ class UserController extends AbstractController
     /**
      * Update User information.
      *
-     * @param User $user
-     * @param Request $request
+     * @param User        $user
+     * @param Request     $request
      * @param UserManager $userManager
      *
      * @return Response
@@ -123,7 +123,7 @@ class UserController extends AbstractController
      * @throws ORMException
      * @throws OptimisticLockException
      *
-     * @Route("/users/{id}/delete", name="user_delete")
+     * @Route("/users/{id}/delete", name="user_delete", methods={"DELETE"})
      */
     public function delete(User $user, UserManager $userManager): Response
     {
