@@ -62,7 +62,7 @@ class User implements UserInterface
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\Task", mappedBy="author")
+     * @ORM\OneToMany(targetEntity="App\Entity\Task", mappedBy="author", cascade={"persist", "remove"})
      */
     private $tasks;
 
@@ -197,11 +197,7 @@ class User implements UserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
+        return $this->roles;
     }
 
     /**
