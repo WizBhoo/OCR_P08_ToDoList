@@ -37,17 +37,6 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * A login check for security firewall (see config/packages/security)
-     *
-     * @Route("/login_check", name="login_check")
-     *
-     * @return void
-     */
-    public function loginCheck(): void
-    {
-    }
-
-    /**
      * Logout current logged in user
      *
      * @Route("/logout", name="logout")
