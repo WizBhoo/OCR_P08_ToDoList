@@ -28,7 +28,7 @@ class UserController extends AbstractController
      *
      * @return Response
      *
-     * @Route("/users", name="user_list")
+     * @Route("/users", name="user_list", methods={"GET"})
      */
     public function usersList(UserManager $userManager): Response
     {
@@ -41,7 +41,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * Add a User
+     * Add a User.
      *
      * @param Request     $request
      * @param UserManager $userManager
@@ -51,7 +51,7 @@ class UserController extends AbstractController
      * @throws ORMException
      * @throws OptimisticLockException
      *
-     * @Route("/users/create", name="user_create")
+     * @Route("/users/create", name="user_create", methods={"GET", "POST"})
      */
     public function createUser(Request $request, UserManager $userManager): Response
     {
@@ -88,7 +88,7 @@ class UserController extends AbstractController
      * @throws ORMException
      * @throws OptimisticLockException
      *
-     * @Route("/users/{id}/edit", name="user_edit")
+     * @Route("/users/{id}/edit", name="user_edit", methods={"GET", "POST"})
      */
     public function editUser(User $user, Request $request, UserManager $userManager): Response
     {
@@ -125,7 +125,7 @@ class UserController extends AbstractController
      *
      * @Route("/users/{id}/delete", name="user_delete", methods={"DELETE"})
      */
-    public function delete(User $user, UserManager $userManager): Response
+    public function deleteUser(User $user, UserManager $userManager): Response
     {
         $userManager->deleteUser($user);
 

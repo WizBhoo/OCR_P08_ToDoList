@@ -54,6 +54,8 @@ class UserManager
     }
 
     /**
+     * Create a new User in db.
+     *
      * @param User $user
      *
      * @throws ORMException
@@ -92,7 +94,7 @@ class UserManager
     }
 
     /**
-     * Delete a User in db
+     * Delete a User in db.
      *
      * @param User $user
      *
