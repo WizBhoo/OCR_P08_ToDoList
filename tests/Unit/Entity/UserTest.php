@@ -8,6 +8,7 @@ namespace App\Tests\Unit\Entity;
 
 use App\Entity\Task;
 use App\Entity\User;
+use Doctrine\Common\Collections\Collection;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -57,7 +58,8 @@ class UserTest extends TestCase
         $this->assertEquals(null, $user->getUsername());
         $this->assertEquals(null, $user->getEmail());
         $this->assertEquals(null, $user->getPassword());
-        $this->assertEquals([], $user->getRoles());
+        $this->assertInstanceOf(Collection::class, $user->getTasks());
+        $this->assertEquals(['ROLE_USER'], $user->getRoles());
 
         $user->setUsername(self::USER_USERNAME);
         $this->assertEquals(self::USER_USERNAME, $user->getUsername());

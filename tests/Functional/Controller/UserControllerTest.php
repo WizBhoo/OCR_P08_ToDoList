@@ -148,7 +148,7 @@ class UserControllerTest extends WebTestCase
     }
 
     /**
-     * Test edit User.
+     * Test delete User.
      *
      * @return void
      */
