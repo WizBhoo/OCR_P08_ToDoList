@@ -31,8 +31,7 @@ class TaskFixtures extends Fixture implements DependentFixtureInterface
             $task
                 ->setTitle('task'.$i)
                 ->setContent(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                    Fusce varius at ligula nec sollicitudin.'
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius at ligula nec sollicitudin.'
                 )
                 ->setCreatedAt(new DateTime())
             ;

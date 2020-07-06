@@ -58,6 +58,8 @@ class UserManager
      *
      * @param User $user
      *
+     * @return void
+     *
      * @throws ORMException
      * @throws OptimisticLockException
      */
