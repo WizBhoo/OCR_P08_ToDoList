@@ -16,6 +16,7 @@ security:
 
         main:
             anonymous: lazy
+            http_basic: ~
             provider: app_user_provider
             guard:
                 authenticators:
@@ -27,5 +28,6 @@ security:
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/users, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/, roles: ROLE_USER }
+        - { path: ^/users, roles: ROLE_ADMIN }
+        - { path: ^/tasks/$, roles: ROLE_USER }
+        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
