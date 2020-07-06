@@ -38,7 +38,11 @@ class UserControllerTest extends WebTestCase
     protected function setUp(): void
     {
         $this->client = $this->createClient(
-            ['environment' => 'test']
+            ['environment' => 'test'],
+            [
+                'PHP_AUTH_USER' => 'user2',
+                'PHP_AUTH_PW'   => 'demo2',
+            ]
         );
         $this->entityManager = $this->client->getContainer()
             ->get('doctrine')
@@ -153,7 +157,7 @@ class UserControllerTest extends WebTestCase
         $user = $this->entityManager
             ->getRepository(User::class)
             ->findOneBy(['username' => 'user2']);
-        $crawler = $this->client->request(
+        $this->client->request(
             'DELETE',
             '/users/'.$user->getId().'/delete'
         );

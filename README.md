@@ -5,8 +5,7 @@ OpenClassrooms - Training Course DA PHP/Symfony - Project P08 - Upgrade an exist
 My WebSite is Online and you can visit it : [APi - Site CV](https://adrien-pierrard.fr)
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/291aefecd42040b2b17d04870dfb18ba)](https://www.codacy.com/manual/WizBhoo/OCR_P08_ToDoList?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=WizBhoo/OCR_P08_ToDoList&amp;utm_campaign=Badge_Grade)
-[![Maintainability](https://api.codeclimate.com/v1/badges/b57f67e98ae6f21df8ae/maintainability)](https://codeclimate.com/github/WizBhoo/OCR_P08_ToDoList/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/b57f67e98ae6f21df8ae/test_coverage)](https://codeclimate.com/github/WizBhoo/OCR_P08_ToDoList/test_coverage)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/291aefecd42040b2b17d04870dfb18ba)](https://www.codacy.com/manual/WizBhoo/OCR_P08_ToDoList?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=WizBhoo/OCR_P08_ToDoList&amp;utm_campaign=Badge_Coverage)
 
 ## Version 1.0.0 - June 2020
 
