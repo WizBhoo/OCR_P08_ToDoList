@@ -16,7 +16,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Entity
  * @ORM\Table
- * @UniqueEntity(fields={"title"}, message="This task already exists")
+ * @UniqueEntity(fields={"title"}, message="This task already exists.")
  */
 class Task
 {
@@ -48,7 +48,15 @@ class Task
      * @var string
      *
      * @ORM\Column(type="string", unique=true)
-     * @Assert\NotBlank(message="Vous devez saisir un titre.")
+     *
+     * @Assert\NotBlank(message="You must choose a title.")
+     * @Assert\Length(
+     *     min=3,
+     *     max=30,
+     *     minMessage="The title should contain at least {{ limit }} characters.",
+     *     maxMessage="The title should not contain more than {{ limit }} characters.",
+     *     allowEmptyString=false
+     * )
      */
     private $title;
 
@@ -56,7 +64,12 @@ class Task
      * @var string
      *
      * @ORM\Column(type="text")
-     * @Assert\NotBlank(message="Vous devez saisir du contenu.")
+     * @Assert\NotBlank(message="You must add a content.")
+     * @Assert\Length(
+     *     min=10,
+     *     minMessage="The content should contain at least {{ limit }} characters.",
+     *     allowEmptyString=false
+     * )
      */
     private $content;
 

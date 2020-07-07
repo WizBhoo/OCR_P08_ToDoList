@@ -18,7 +18,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table("user")
  * @ORM\Entity
- * @UniqueEntity(fields={"email"}, message="This email already exists")
+ * @UniqueEntity(fields={"email"}, message="This email already exists.")
  */
 class User implements UserInterface
 {
@@ -36,7 +36,14 @@ class User implements UserInterface
      *
      * @ORM\Column(type="string", length=25, unique=true)
      *
-     * @Assert\NotBlank(message="Vous devez saisir un nom d'utilisateur.")
+     * @Assert\NotBlank(message="You must choose a username.")
+     * @Assert\Length(
+     *     min=3,
+     *     max=25,
+     *     minMessage="The username should contain at least {{ limit }} characters.",
+     *     maxMessage="The username should not contain more than {{ limit }} characters.",
+     *     allowEmptyString=false
+     * )
      */
     private $username;
 
@@ -44,6 +51,13 @@ class User implements UserInterface
      * @var string The hashed password
      *
      * @ORM\Column(type="string", length=64)
+     *
+     * @Assert\NotBlank(message="You must choose a password.")
+     * @Assert\Length(
+     *     min=5,
+     *     minMessage="Your password should contain at least {{ limit }} characters.",
+     *     allowEmptyString=false
+     * )
      */
     private $password;
 
@@ -52,9 +66,9 @@ class User implements UserInterface
      *
      * @ORM\Column(type="string", length=60, unique=true)
      *
-     * @Assert\NotBlank(message="Vous devez saisir une adresse email.")
+     * @Assert\NotBlank(message="You must enter an email.")
      * @Assert\Email(
-     *     message="Le format de l'adresse n'est pas correcte."
+     *     message="The Email '{{ value }}' is not a valid email."
      * )
      */
     private $email;
@@ -199,7 +213,9 @@ class User implements UserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        if (!$roles) {
+            $roles[] = 'ROLE_USER';
+        }
 
         return array_unique($roles);
     }
