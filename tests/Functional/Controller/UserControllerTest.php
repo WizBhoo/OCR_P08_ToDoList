@@ -31,7 +31,7 @@ class UserControllerTest extends WebTestCase
     private $entityManager;
 
     /**
-     * Set up the EntityManager.
+     * Set up the client and the EntityManager.
      *
      * @return void
      */
