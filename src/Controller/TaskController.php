@@ -9,6 +9,7 @@ namespace App\Controller;
 use App\Entity\Task;
 use App\Form\TaskType;
 use App\Manager\TaskManager;
+use App\Security\TaskVoter;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -187,11 +188,7 @@ class TaskController extends AbstractController
      */
     public function deleteTask(Task $task, TaskManager $taskManager): Response
     {
-        if (($task->getAuthor() !== null && $task->getAuthor() !== $this->getUser())
-            || ($task->getAuthor() === null && !$this->isGranted('ROLE_ADMIN'))
-        ) {
-            throw $this->createAccessDeniedException();
-        }
+        $this->denyAccessUnlessGranted(TaskVoter::DELETE, $task);
 
         $taskManager->deleteTask($task);
 

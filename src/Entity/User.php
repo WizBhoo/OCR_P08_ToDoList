@@ -211,13 +211,7 @@ class User implements UserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        if (!$roles) {
-            $roles[] = 'ROLE_USER';
-        }
-
-        return array_unique($roles);
+        return $this->roles;
     }
 
     /**
@@ -227,7 +221,7 @@ class User implements UserInterface
      */
     public function setRoles(array $roles): self
     {
-        $this->roles = $roles;
+        $this->roles = array_unique($roles);
 
         return $this;
     }
