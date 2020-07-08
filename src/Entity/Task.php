@@ -9,12 +9,14 @@ namespace App\Entity;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Entity Class Figure.
  *
  * @ORM\Entity
  * @ORM\Table
+ * @UniqueEntity(fields={"title"}, message="This task already exists")
  */
 class Task
 {
@@ -45,7 +47,7 @@ class Task
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", unique=true)
      * @Assert\NotBlank(message="Vous devez saisir un titre.")
      */
     private $title;

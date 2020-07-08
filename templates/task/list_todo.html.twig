@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block header_img %}
+    <img class="slide-image" src="{{ asset('img/todolist_content.jpg') }}" alt="todo list">
+{% endblock %}
+
+{% block body %}
+    <div class="row text-center">
+        <h1>Liste des tâches à réaliser</h1>
+    </div>
+    <div class="row">
+        <a href="{{ path('task_create') }}" class="btn btn-success">Créer une tâche</a>
+        <a href="{{ path('task_list_done') }}" class="btn btn-info">Voir les tâches faites</a>
+    </div>
+    <div class="row">
+        {% for task in tasks %}
+        <div class="col-sm-4 col-lg-4 col-md-4">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h4 class="pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </h4>
+                    <h4>
+                        {{ task.title }}
+                    </h4>
+                    <p>{{ task.content }}</p>
+                    {% if task.author %}
+                        <p>Auteur : {{ task.author.username }}</p>
+                    {% else %}
+                        <p>Auteur : Anonyme</p>
+                    {% endif %}
+                </div>
+                <div>
+                    <form action="{{ path('task_toggle', {'id' : task.id }) }}">
+                        <button class="btn btn-success btn-sm pull-right">
+                            Marquer comme faite
+                        </button>
+                    </form>
+                    <form method="POST"
+                          class="delete-form"
+                          action="{{ path('task_delete', {'id': task.id}) }}"
+                          onsubmit="return confirm('Are you sure you want to delete this task ?');">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ task.id) }}">
+                        <button class="btn btn-danger btn-sm pull-right">Supprimer</button>
+                    </form>
+                    <form action="{{ path('task_edit', {'id' : task.id }) }}">
+                        <button class="btn btn-info btn-sm pull-right">Editer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% else %}
+            <div class="alert alert-warning" role="alert">
+                Il n'y a pas encore de tâche enregistrée.
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
