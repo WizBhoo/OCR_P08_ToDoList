@@ -23,17 +23,32 @@ use Symfony\Component\Routing\Annotation\Route;
 class TaskController extends AbstractController
 {
     /**
-     * Show the Tasks list to do.
+     * A TaskManager Instance.
+     *
+     * @var TaskManager
+     */
+    private $taskManager;
+
+    /**
+     * TaskController constructor.
      *
      * @param TaskManager $taskManager
+     */
+    public function __construct(TaskManager $taskManager)
+    {
+        $this->taskManager = $taskManager;
+    }
+
+    /**
+     * Show the Tasks list to do.
      *
      * @return Response
      *
      * @Route("/tasks/todo", name="task_list_todo", methods={"GET"})
      */
-    public function tasksToDo(TaskManager $taskManager): Response
+    public function tasksToDo(): Response
     {
-        $tasks = $taskManager->findAllToDo();
+        $tasks = $this->taskManager->findAllToDo();
 
         return $this->render(
             'task/list_todo.html.twig',
@@ -44,15 +59,13 @@ class TaskController extends AbstractController
     /**
      * Show the Tasks list done.
      *
-     * @param TaskManager $taskManager
-     *
      * @return Response
      *
      * @Route("/tasks/done", name="task_list_done", methods={"GET"})
      */
-    public function tasksDone(TaskManager $taskManager): Response
+    public function tasksDone(): Response
     {
-        $tasks = $taskManager->findAllDone();
+        $tasks = $this->taskManager->findAllDone();
 
         return $this->render(
             'task/list_done.html.twig',
@@ -63,8 +76,7 @@ class TaskController extends AbstractController
     /**
      * Add a new Task.
      *
-     * @param Request     $request
-     * @param TaskManager $taskManager
+     * @param Request $request
      *
      * @return Response
      *
@@ -73,14 +85,14 @@ class TaskController extends AbstractController
      *
      * @Route("/tasks/create", name="task_create", methods={"GET", "POST"})
      */
-    public function createTask(Request $request, TaskManager $taskManager): Response
+    public function createTask(Request $request): Response
     {
         $task = new Task();
         $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $taskManager->createTask($task);
+            $this->taskManager->createTask($task);
 
             $this->addFlash(
                 'success',
@@ -99,9 +111,8 @@ class TaskController extends AbstractController
     /**
      * Update a Task.
      *
-     * @param Task        $task
-     * @param Request     $request
-     * @param TaskManager $taskManager
+     * @param Task    $task
+     * @param Request $request
      *
      * @return Response
      *
@@ -110,14 +121,14 @@ class TaskController extends AbstractController
      *
      * @Route("/tasks/{id}/edit", name="task_edit", methods={"GET", "POST"})
      */
-    public function editTask(Task $task, Request $request, TaskManager $taskManager): Response
+    public function editTask(Task $task, Request $request): Response
     {
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $taskManager->updateTask($task);
+            $this->taskManager->updateTask($task);
 
             $this->addFlash(
                 'success',
@@ -136,8 +147,7 @@ class TaskController extends AbstractController
     /**
      * Toggle a Task to do as Task done and vice versa.
      *
-     * @param Task        $task
-     * @param TaskManager $taskManager
+     * @param Task $task
      *
      * @return Response
      *
@@ -146,9 +156,9 @@ class TaskController extends AbstractController
      *
      * @Route("/tasks/{id}/toggle", name="task_toggle", methods={"GET"})
      */
-    public function toggleTask(Task $task, TaskManager $taskManager): Response
+    public function toggleTask(Task $task): Response
     {
-        $taskManager->toggle($task);
+        $this->taskManager->toggle($task);
 
         if (true === $task->isDone()) {
             $this->addFlash(
@@ -176,8 +186,7 @@ class TaskController extends AbstractController
     /**
      * Delete a Task.
      *
-     * @param Task        $task
-     * @param TaskManager $taskManager
+     * @param Task $task
      *
      * @return Response
      *
@@ -186,11 +195,11 @@ class TaskController extends AbstractController
      *
      * @Route("/tasks/{id}/delete", name="task_delete", methods={"DELETE"})
      */
-    public function deleteTask(Task $task, TaskManager $taskManager): Response
+    public function deleteTask(Task $task): Response
     {
         $this->denyAccessUnlessGranted(TaskVoter::DELETE, $task);
 
-        $taskManager->deleteTask($task);
+        $this->taskManager->deleteTask($task);
 
         $this->addFlash(
             'success',
