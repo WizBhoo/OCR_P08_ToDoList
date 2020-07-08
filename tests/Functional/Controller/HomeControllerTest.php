@@ -22,7 +22,7 @@ class HomeControllerTest extends WebTestCase
     private $client;
 
     /**
-     * Set up the EntityManager.
+     * Set up the client.
      *
      * @return void
      */
@@ -40,7 +40,7 @@ class HomeControllerTest extends WebTestCase
      */
     public function testIndex(): void
     {
-        $crawler = $this->client->request(
+        $this->client->request(
             'GET',
             '/'
         );

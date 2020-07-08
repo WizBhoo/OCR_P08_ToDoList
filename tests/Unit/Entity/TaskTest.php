@@ -9,7 +9,6 @@ namespace App\Tests\Unit\Entity;
 use App\Entity\Task;
 use App\Entity\User;
 use DateTime;
-use Doctrine\Common\Collections\Collection;
 use PHPUnit\Framework\TestCase;
 
 /**

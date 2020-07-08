@@ -32,7 +32,7 @@ class TaskControllerTest extends WebTestCase
     private $entityManager;
 
     /**
-     * Set up the EntityManager.
+     * Set up the client and the EntityManager.
      *
      * @return void
      */
@@ -164,7 +164,8 @@ class TaskControllerTest extends WebTestCase
     }
 
     /**
-     * Test delete Task.
+     * Test delete Task by its author.
+     * (user1 try to delete task created by him)
      *
      * @return void
      */
@@ -172,7 +173,7 @@ class TaskControllerTest extends WebTestCase
     {
         $task = $this->entityManager
             ->getRepository(Task::class)
-            ->find(5);
+            ->find(6);
         $this->client->request(
             'DELETE',
             '/tasks/'.$task->getId().'/delete'
@@ -191,10 +192,88 @@ class TaskControllerTest extends WebTestCase
 
         $task = $this->entityManager
             ->getRepository(Task::class)
-            ->find(5);
+            ->find(6);
         $this->assertEquals(null, $task);
     }
 
+    /**
+     * Test delete Task created by another Author.
+     * (user1 try to delete task created by user2)
+     *
+     * @return void
+     */
+    public function testDeleteTaskOfOtherAuthor(): void
+    {
+        $task = $this->entityManager
+            ->getRepository(Task::class)
+            ->find(12);
+        $this->client->request(
+            'DELETE',
+            '/tasks/'.$task->getId().'/delete'
+        );
+
+        $this->assertSame(403, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * Test delete Task created by anonymous Author.
+     * (user1 try to delete task created by anonymous author)
+     *
+     * @return void
+     */
+    public function testDeleteTaskOfAnonymousAuthor(): void
+    {
+        $task = $this->entityManager
+            ->getRepository(Task::class)
+            ->find(1);
+        $this->client->request(
+            'DELETE',
+            '/tasks/'.$task->getId().'/delete'
+        );
+
+        $this->assertSame(403, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * Test delete Anonymous Task by Admin user.
+     * (user2 try to delete task created by anonymous author)
+     *
+     * @return void
+     */
+    public function testDeleteAnonymousTaskByAdmin(): void
+    {
+        self::ensureKernelShutdown();
+        $client = static::createClient(
+            ['environment' => 'test'],
+            [
+                'PHP_AUTH_USER' => 'user2',
+                'PHP_AUTH_PW'   => 'demo2',
+            ]
+        );
+
+        $task = $this->entityManager
+            ->getRepository(Task::class)
+            ->find(1);
+        $client->request(
+            'DELETE',
+            '/tasks/'.$task->getId().'/delete'
+        );
+
+        $session = $client->getContainer()->get('session');
+        $flashes = $session->getBag('flashes')->all();
+        $this->assertArrayHasKey('success', $flashes);
+        $this->assertCount(1, $flashes['success']);
+        $this->assertEquals(
+            "La tâche a bien été supprimée.",
+            current($flashes['success'])
+        );
+    }
+
+    /**
+     * Test to toggle a task as Done.
+     *
+     * @return void
+     */
     public function testToggleTaskDone(): void
     {
         $task = $this->entityManager
@@ -221,7 +300,12 @@ class TaskControllerTest extends WebTestCase
         $this->assertTrue($task->isDone());
     }
 
-    public function testToggleTaskToDo()
+    /**
+     * Test to toggle a Task as To Do.
+     *
+     * @return void
+     */
+    public function testToggleTaskToDo(): void
     {
         $task = $this->entityManager
             ->getRepository(Task::class)

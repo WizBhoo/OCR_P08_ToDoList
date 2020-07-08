@@ -9,13 +9,13 @@ namespace App\Controller;
 use App\Entity\Task;
 use App\Form\TaskType;
 use App\Manager\TaskManager;
+use App\Security\TaskVoter;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 
 /**
  * Class TaskController.
@@ -188,6 +188,8 @@ class TaskController extends AbstractController
      */
     public function deleteTask(Task $task, TaskManager $taskManager): Response
     {
+        $this->denyAccessUnlessGranted(TaskVoter::DELETE, $task);
+
         $taskManager->deleteTask($task);
 
         $this->addFlash(

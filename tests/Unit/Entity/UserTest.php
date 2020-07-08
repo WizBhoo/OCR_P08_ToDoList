@@ -59,7 +59,7 @@ class UserTest extends TestCase
         $this->assertEquals(null, $user->getEmail());
         $this->assertEquals(null, $user->getPassword());
         $this->assertInstanceOf(Collection::class, $user->getTasks());
-        $this->assertEquals(['ROLE_USER'], $user->getRoles());
+        $this->assertEquals([], $user->getRoles());
 
         $user->setUsername(self::USER_USERNAME);
         $this->assertEquals(self::USER_USERNAME, $user->getUsername());
