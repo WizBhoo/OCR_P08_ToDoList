@@ -17,7 +17,7 @@ My WebSite is Online and you can visit it : [APi - Site CV](https://adrien-pierr
 *   Please, read [Authentication - How it works](AUTHENTICATION.md) if needed.
 *   Want to contribute to this project ? Please read the [Contributing Guidelines](CONTRIBUTING.md) before.
 
--------------------------------------------------------------------------------------------------------------------------------------
+---
 
 Realized by Adrien PIERRARD - [(see GitHub)](https://github.com/WizBhoo)
 
@@ -25,7 +25,7 @@ Supported by Antoine De Conto - OCR Mentor
 
 Special thanks to Rui TEIXEIRA and Yann LUCAS for PR Reviews
 
--------------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### How to install the project with your own local environment
 
@@ -60,7 +60,7 @@ php bin/console doctrine:fixtures:load
 
 *   Well done ! Project installed ! So you just have to go to your localhost home page.
 
--------------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### How to install the project using my Docker Stack (recommended method)
 
@@ -105,7 +105,7 @@ php bin/console doctrine:fixtures:load
 
 *   Well done ! Project installed ! So you just have to go to [mon-site.localhost](http://mon-site.localhost) home page.
 
--------------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### How to contribute to this project
 
@@ -119,7 +119,7 @@ php bin/console doctrine:fixtures:load
 *   Whatever the way you wish to contribute, please read the [Contributing Guidelines](CONTRIBUTING.md) before.
 *   Click on the link to access to the [Project Improvement Plan](https://github.com/WizBhoo/OCR_P08_ToDoList/projects/2).
 
--------------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### Contact
 

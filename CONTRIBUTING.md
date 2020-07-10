@@ -8,7 +8,7 @@ Supported by Antoine De Conto - OCR Mentor.
 
 Special thanks to Rui TEIXEIRA and Yann LUCAS for PR Reviews.
 
--------------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Introduction
 
@@ -112,7 +112,7 @@ Now you just have to wait for it to be reviewed and accepted by the team.
 
 This application develop with Symfony framework, please check the [Symfony Documentation](https://symfony.com/doc/4.4/best_practices.html) to follow best practices.
 
--------------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Contact
 

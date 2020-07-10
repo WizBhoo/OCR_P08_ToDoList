@@ -8,13 +8,13 @@ Supported by Antoine De Conto - OCR Mentor.
 
 Special thanks to Rui TEIXEIRA and Yann LUCAS for PR Reviews.
 
--------------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Introduction
 
 As we use Symfony as framework of the ToDo & Co App, our authentication system is based on the Symfony's security component.
 
-In Symfony, the security system contains two major mechanisms : 
+In Symfony, the security system contains two major mechanisms :
 
 *   Authentication who defines who the user is, managed by the firewall.
 *   Authorization who determines if a visitor, or a User has the right to access certain resources. It comes after the firewall, managed by Symfony through access control.
@@ -25,7 +25,7 @@ In this documentation we will explain how both mechanism works in our App to und
 
 ### 1. Users
 
-*   A ToDo & Co App User is represented by the Entity Class User, which implements the UserInterface.
+*   A ToDo & Co App User is represented by the entity class `User`, which implements the `UserInterface`.
 *   This Class is a Doctrine entity, so Users are stored in database and are represented by their username attribute.
 *   Open the file `config/packages/security.yaml` to see this information, defined under the key `providers`.
 *   It is not permitted to store in DataBase a User password in clear plaintext. So we need to encrypt it.
@@ -50,7 +50,7 @@ In the `security.yaml` file, you will see that we defined certain parameters und
 
 *   You can use some attributes to check it like for example :
     *   `IS_AUTHENTICATED_ANONYMOUSLY` which means all users, even those who are not authenticated.  
-    *   `IS_AUTHENTICATED_FULLY`which means authenticated users during the current session.
+    *   `IS_AUTHENTICATED_FULLY` which means authenticated users during the current session.
 
 *   Use those attributes in the `security.yaml` file to secure url patterns via the `access_control` key.
 
@@ -89,7 +89,7 @@ As mentioned above, you can define who has the right to access certain resources
 *   [Symfony Voters](https://symfony.com/doc/4.4/components/security/authorization.html#voters)
 *   [The Firewall and Authorization](https://symfony.com/doc/4.4/components/security/firewall.html)
 
--------------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Contact
 
