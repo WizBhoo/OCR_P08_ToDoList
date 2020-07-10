@@ -22,17 +22,32 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     /**
-     * Show the Users list.
+     * A UserManager Instance.
+     *
+     * @var UserManager
+     */
+    private $userManager;
+
+    /**
+     * UserController constructor.
      *
      * @param UserManager $userManager
+     */
+    public function __construct(UserManager $userManager)
+    {
+        $this->userManager = $userManager;
+    }
+
+    /**
+     * Show the Users list.
      *
      * @return Response
      *
      * @Route("/users", name="user_list", methods={"GET"})
      */
-    public function usersList(UserManager $userManager): Response
+    public function usersList(): Response
     {
-        $users = $userManager->findAllUsers();
+        $users = $this->userManager->findAllUsers();
 
         return $this->render(
             'user/list.html.twig',
@@ -43,8 +58,7 @@ class UserController extends AbstractController
     /**
      * Add a User.
      *
-     * @param Request     $request
-     * @param UserManager $userManager
+     * @param Request $request
      *
      * @return Response
      *
@@ -53,14 +67,14 @@ class UserController extends AbstractController
      *
      * @Route("/users/create", name="user_create", methods={"GET", "POST"})
      */
-    public function createUser(Request $request, UserManager $userManager): Response
+    public function createUser(Request $request): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $userManager->createUser($user);
+            $this->userManager->createUser($user);
 
             $this->addFlash(
                 'success',
@@ -79,9 +93,8 @@ class UserController extends AbstractController
     /**
      * Update User information.
      *
-     * @param User        $user
-     * @param Request     $request
-     * @param UserManager $userManager
+     * @param User    $user
+     * @param Request $request
      *
      * @return Response
      *
@@ -90,13 +103,13 @@ class UserController extends AbstractController
      *
      * @Route("/users/{id}/edit", name="user_edit", methods={"GET", "POST"})
      */
-    public function editUser(User $user, Request $request, UserManager $userManager): Response
+    public function editUser(User $user, Request $request): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $userManager->updateUser($user);
+            $this->userManager->updateUser($user);
 
             $this->addFlash(
                 'success',
@@ -115,8 +128,7 @@ class UserController extends AbstractController
     /**
      * Delete a user.
      *
-     * @param User        $user
-     * @param UserManager $userManager
+     * @param User $user
      *
      * @return Response
      *
@@ -125,9 +137,9 @@ class UserController extends AbstractController
      *
      * @Route("/users/{id}/delete", name="user_delete", methods={"DELETE"})
      */
-    public function deleteUser(User $user, UserManager $userManager): Response
+    public function deleteUser(User $user): Response
     {
-        $userManager->deleteUser($user);
+        $this->userManager->deleteUser($user);
 
         $this->addFlash(
             'success',

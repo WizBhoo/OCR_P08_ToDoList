@@ -40,10 +40,14 @@ class UserType extends AbstractType
                 RepeatedType::class,
                 [
                     'type' => PasswordType::class,
-                    'invalid_message' => 'Les deux mots de passe doivent correspondre.',
+                    'invalid_message' =>
+                        'Les deux mots de passe doivent correspondre.',
                     'required' => true,
                     'first_options'  => ['label' => 'Mot de passe'],
-                    'second_options' => ['label' => 'Tapez le mot de passe à nouveau'],
+                    'second_options' =>
+                        [
+                            'label' => 'Tapez le mot de passe à nouveau'
+                        ],
                 ]
             )
             ->add(
@@ -68,14 +72,16 @@ class UserType extends AbstractType
         ;
 
         $builder->get('roles')
-            ->addModelTransformer(new CallbackTransformer(
-                function ($rolesArray) {
-                    return count($rolesArray) ? $rolesArray[0]: null;
-                },
-                function ($rolesString) {
-                    return [$rolesString];
-                }
-            ))
+            ->addModelTransformer(
+                new CallbackTransformer(
+                    function ($rolesArray) {
+                        return count($rolesArray) ? $rolesArray[0]: null;
+                    },
+                    function ($rolesString) {
+                        return [$rolesString];
+                    }
+                )
+            )
         ;
     }
 }
