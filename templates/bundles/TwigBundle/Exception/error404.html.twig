@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="text-center">
+        <div class="alert alert-warning mt-2 ml-5 mr-5">
+            <h1>Erreur {{ status_code }}</h1>
+            <p>Nous n'avons malheureusement pas trouvé cette page...</p>
+        </div>
+        <a class="btn btn-light mt-2" href="{{ path('homepage') }}"><i class="fa fa-chevron-left" aria-hidden="true"></i> Retour à l'accueil</a>
+    </div>
+{% endblock %}
