@@ -6,8 +6,9 @@ My WebSite is Online and you can visit it : [APi - Site CV](https://adrien-pierr
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/291aefecd42040b2b17d04870dfb18ba)](https://www.codacy.com/manual/WizBhoo/OCR_P08_ToDoList?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=WizBhoo/OCR_P08_ToDoList&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/291aefecd42040b2b17d04870dfb18ba)](https://www.codacy.com/manual/WizBhoo/OCR_P08_ToDoList?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=WizBhoo/OCR_P08_ToDoList&amp;utm_campaign=Badge_Coverage)
+![Main](https://github.com/WizBhoo/OCR_P08_ToDoList/workflows/Main/badge.svg)
 
-## Version 1.0.0 - July 2020
+## Version 1.0.1 - July 2020
 
 *   This file explains how to install and run the project.
 *   IDE used : PhpStorm.
